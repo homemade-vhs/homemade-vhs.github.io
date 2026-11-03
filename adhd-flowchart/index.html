@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Getting Started Walkthrough</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<style>
+/* Layout: one card at a time, centered column, breadcrumb trail above, pastel node colors lifted from the paper chart */
+:root{
+  --bg:#fbfaf6; --fg:#23262b; --muted:#6a6f78; --card:#ffffff; --line:#d9d6cc;
+  --accent:#ff9d3a; --accent-fg:#2a1a00;
+  --c-step:#b9f3ff; --c-pink:#ffd5dc; --c-yellow:#f5f7b0; --c-green:#d3f5d2; --c-blue:#c6e2ff; --c-peach:#ffe2c4; --c-lilac:#ded8ff; --c-grey:#e6e6e6;
+  --c-red:#ff8a8a;
+  --display:"Fredoka","Nunito",system-ui,sans-serif; --body:"Nunito",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#1b1d22; --fg:#f0eee8; --muted:#a3a7b0; --card:#262930; --line:#3a3e47;
+  --accent:#ffb15c; --accent-fg:#2a1a00;
+  --c-step:#1d5f6c; --c-pink:#6b3542; --c-yellow:#5e6128; --c-green:#2d5c33; --c-blue:#2e4c72; --c-peach:#6b4a2a; --c-lilac:#48417a; --c-grey:#444a52; --c-red:#8a3a3a;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#1b1d22; --fg:#f0eee8; --muted:#a3a7b0; --card:#262930; --line:#3a3e47;
+  --accent:#ffb15c; --accent-fg:#2a1a00;
+  --c-step:#1d5f6c; --c-pink:#6b3542; --c-yellow:#5e6128; --c-green:#2d5c33; --c-blue:#2e4c72; --c-peach:#6b4a2a; --c-lilac:#48417a; --c-grey:#444a52; --c-red:#8a3a3a;
+  color-scheme:dark}
+html,body{height:100%}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:17px;line-height:1.5;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:20px 48px}
+.wrap{max-width:640px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+h1{font-family:var(--display);font-weight:700;font-size:1.35rem;margin:0;letter-spacing:.01em;
+  background:linear-gradient(90deg,#ffd166,#ffb3b3);color:#1c1c1c;padding:4px 14px;border-radius:999px;text-wrap:balance}
+.hbtns{display:flex;gap:8px}
+button{font-family:var(--body);font-size:1rem;cursor:pointer;border:0;border-radius:999px}
+.ghost{background:transparent;color:var(--muted);border:1.5px solid var(--line);padding:6px 14px;font-weight:600}
+.ghost:hover{color:var(--fg);border-color:var(--fg)}
+.trail{display:flex;flex-wrap:wrap;gap:6px;font-size:.8rem;color:var(--muted);min-height:1.2em}
+.trail span{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:2px 10px}
+.card{background:var(--card);border:2px solid var(--line);border-radius:22px;padding:22px;display:flex;flex-direction:column;gap:16px;
+  box-shadow:0 6px 24px rgba(0,0,0,.06);min-width:0}
+.eyebrow{font-family:var(--display);font-weight:600;font-size:.8rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:8px}
+.eyebrow .num{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;background:var(--fg);color:var(--bg);font-size:.85rem}
+.title{font-family:var(--display);font-weight:600;font-size:1.5rem;line-height:1.25;margin:0;padding:12px 16px;border-radius:14px;text-wrap:balance;color:#1c1c1c}
+:root[data-theme="dark"] .title{color:var(--fg)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .title{color:var(--fg)}}
+.body{margin:0;color:var(--fg)}
+ul.skills{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:8px}
+ul.skills b{font-weight:700}
+.opts{display:flex;flex-direction:column;gap:10px}
+.opt{text-align:left;padding:12px 16px;border-radius:14px;border:2px solid transparent;font-weight:600;font-size:1rem;line-height:1.35;color:#1c1c1c;
+  display:flex;align-items:center;gap:10px;transition:transform .08s ease}
+:root[data-theme="dark"] .opt{color:var(--fg)}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .opt{color:var(--fg)}}
+.opt:hover{transform:translateX(3px);border-color:var(--fg)}
+.opt:focus-visible,.ghost:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.opt small{font-weight:400;color:inherit;opacity:.8;display:block}
+.opt .lab{font-family:var(--display);font-size:.72rem;text-transform:uppercase;letter-spacing:.07em;opacity:.75;display:block;margin-bottom:2px}
+.opt.gohell{background:var(--accent);color:var(--accent-fg)!important}
+.end{text-align:center;display:flex;flex-direction:column;gap:14px;align-items:center}
+.burst{font-family:var(--display);font-weight:700;font-size:1.9rem;line-height:1.1;padding:28px 24px;color:#1c1c1c;
+  clip-path:polygon(50% 0%,61% 12%,76% 6%,80% 21%,96% 24%,91% 38%,100% 50%,91% 62%,96% 76%,80% 79%,76% 94%,61% 88%,50% 100%,39% 88%,24% 94%,20% 79%,4% 76%,9% 62%,0% 50%,9% 38%,4% 24%,20% 21%,24% 6%,39% 12%);
+  aspect-ratio:1;max-width:100%;width:min(100%,300px);display:grid;place-items:center;text-wrap:balance}
+.foot{font-size:.85rem;color:var(--muted);text-align:center;line-height:1.4}
+.foot a{color:inherit}
+.bg-step{background:var(--c-step)} .bg-pink{background:var(--c-pink)} .bg-yellow{background:var(--c-yellow)} .bg-green{background:var(--c-green)}
+.bg-blue{background:var(--c-blue)} .bg-peach{background:var(--c-peach)} .bg-lilac{background:var(--c-lilac)} .bg-grey{background:var(--c-grey)} .bg-red{background:var(--c-red)} .bg-accent{background:var(--accent)}
+@media (prefers-reduced-motion: reduce){.opt{transition:none}.opt:hover{transform:none}}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <h1>Getting started with executive dysfunction</h1>
+    <div class="hbtns">
+      <button class="ghost" id="back" type="button">← Back</button>
+      <button class="ghost" id="restart" type="button">Restart</button>
+    </div>
+  </header>
+  <div class="trail" id="trail" aria-label="Path so far"></div>
+  <main class="card" id="card" aria-live="polite"></main>
+  <p class="foot">One box at a time. Tap an answer to follow its arrow. Back retraces your path; Restart goes to Step 1.</p>
+</div>
+
+<script>
+// Every node is one box on the chart. opts = [label, nextId, color, sublabel]
+const N = {
+  s1:{step:1,color:'bg-step',q:'Do you know what you need to do?',opts:[
+    ['Yes!','s2','bg-green'],
+    ['Kind of, but I’m not sure where to start','prioritize','bg-peach','Overwhelm'],
+    ['No idea :(','prioritize','bg-pink','Overwhelm'],
+    ['I want to do it but I can’t stop doing something else','inertia','bg-lilac','Inertia']]},
+  prioritize:{color:'bg-blue',q:'Prioritize',skills:[
+    '<b>Use an important / urgent matrix</b>',
+    '<b>Pick the top 3 things</b> or just 1 next thing'],opts:[
+    ['I know what to do now!','s2','bg-green'],
+    ['I still don’t know…','breakdown','bg-pink','Overwhelm']]},
+  breakdown:{color:'bg-blue',q:'Break it down',skills:[
+    '<b>Use Goblin Tools</b> (goblin.tools) to split it into steps',
+    'What’s the <b>smallest, easiest, measurable</b> first step?'],opts:[
+    ['I know what to do now!','s2','bg-green'],
+    ['I still don’t know :(','revisit','bg-pink'],
+    ['It still feels too hard or like too much','wellbeing','bg-peach']]},
+  revisit:{color:'bg-lilac',q:'Take a step back',body:'Revisit previous to-do lists, ask someone for help, or take a walk or a break to think about it. Then come back to Step 1.',opts:[
+    ['Go to Step 1','s1','bg-step']]},
+  s2:{step:2,color:'bg-step',q:'Can you start the task?',opts:[
+    ['Yes!','hell','bg-green'],
+    ['No, that’s why I’m using this','s3','bg-pink']]},
+  s3:{step:3,color:'bg-step',q:'Why are you having trouble getting started?',opts:[
+    ['I don’t want to do it','tenmin','bg-pink','Motivation'],
+    ['I really want to do something else specifically','impulses','bg-yellow','Impulse control'],
+    ['I feel bad, upset, gross','wellbeing','bg-peach','Sensory & emotional regulation'],
+    ['It feels too hard or I’m afraid of failing','breakdown','bg-pink','Perfectionism'],
+    ['I don’t know how to do it','breakdown','bg-peach','Paralysis'],
+    ['Not sure why','mindfulness','bg-lilac','???']]},
+  tenmin:{color:'bg-blue',q:'Can you do it for just 10 minutes?',opts:[
+    ['Yeah, that sounds doable','hell','bg-green'],
+    ['That still sounds bad','why','bg-pink']]},
+  why:{color:'bg-blue',q:'Why?',opts:[
+    ['It’s an unpleasant or arduous task','tolerable','bg-pink'],
+    ['I’m worried I’ll fail','breakdown','bg-peach']]},
+  tolerable:{color:'bg-blue',q:'Make it more tolerable',skills:[
+    '<b>Listen</b> to music or an audiobook',
+    '<b>Accommodate the task</b> to make it less bad',
+    '<b>Pretend to be excited</b> about it, <b>find the fun</b>',
+    '<b>Decide on a reward</b> for after',
+    '<b>Change of scenery</b>',
+    '<b>Wear the “Scientist Hat”</b> — they do this task!',
+    '<b>Body double</b> with a friend'],opts:[
+    ['One of those worked!','hell','bg-green'],
+    ['This didn’t help','dopamine','bg-pink']]},
+  dopamine:{color:'bg-blue',q:'DIY dopamine',skills:[
+    '<b>Dance break</b> with a fun song',
+    '<b>Delicious snack</b>',
+    '<b>Exercise:</b> 60 seconds of jumping jacks',
+    '<b>Stretch</b>',
+    '<b>Novelty:</b> change your position or environment'],opts:[
+    ['I can start the task now!','hell','bg-green'],
+    ['It isn’t helping','s4','bg-pink']]},
+  mindfulness:{color:'bg-blue',q:'Mindfulness',body:'Take 5 minutes to sit quietly and consider why. How about now?',opts:[
+    ['I know why now!','s3','bg-green'],
+    ['I still don’t know…','wellbeing','bg-peach']]},
+  wellbeing:{color:'bg-blue',q:'Wellbeing',body:'Are your physical and emotional needs met right now?',opts:[
+    ['Needs are met!','s4','bg-green'],
+    ['No, it’s emotional','emotional','bg-grey','Social interaction, managing shame, fear, anxiety, etc'],
+    ['No, it’s physical','physical','bg-grey','Meds, food, rest, sensory, water, movement, etc']]},
+  emotional:{color:'bg-lilac',q:'Use DBT skills',skills:[
+    '<b>Check the facts</b> — does the emotion fit the situation?',
+    '<b>Opposite action</b> — do the opposite of what the emotion urges',
+    '<b>Loving kindness</b> toward yourself'],opts:[
+    ['Done. Go to Step 2','s2','bg-step']]},
+  physical:{color:'bg-blue',q:'Can the need be met right now, even partially?',opts:[
+    ['Yes!','attend','bg-green'],
+    ['The need can’t be met','s4','bg-pink']]},
+  attend:{color:'bg-lilac',q:'Attend to the need',body:'Meet it as much as you can right now, then come back.',opts:[
+    ['Go to Step 2','s2','bg-step']]},
+  inertia:{color:'bg-blue',q:'Interrupt inertia',skills:[
+    '<b>Create interruptions:</b> drink lots of water, content blockers, etc',
+    '<b>Stop what you’re doing for just 5 minutes</b>',
+    '<b>Drink water</b> so you get up to pee',
+    '<b>Put on a content blocker</b>',
+    '<b>Get into an uncomfortable position</b> so you’re more likely to get up',
+    '<b>Set a recurring alarm</b> to check in: do you want to be doing this?',
+    '<b>Ask for help</b> to interrupt the task',
+    '<b>Set up accountability</b> from others',
+    '<b>Make grumbling noises</b> about it',
+    '<b>Pretend you’re teaching</b> someone ADHD skills and verbally explain how you overcome paralysis'],opts:[
+    ['I can start the task now!','hell','bg-green'],
+    ['I got unstuck, but I still need help starting','s3','bg-peach'],
+    ['These didn’t help','s4','bg-pink']]},
+  impulses:{color:'bg-blue',q:'Resist impulses',skills:[
+    '<b>Name the emotion, impulse, and need.</b> “I’m feeling grumpy, so I want to give up. I need to have a snack and take a break.”',
+    '<b>Create physical distance</b> from the thing',
+    '<b>Create a gap.</b> Wait just 5 minutes before acting',
+    '<b>Look back:</b> during those 5 minutes, think about the last time you acted on this impulse. (“Last time I ___, I felt ___ / ___ happened”)',
+    '<b>Look forward:</b> “How will I feel if I follow X impulse?” and “How will I feel if I don’t?” (let there be good feelings about that one too!)',
+    '<b>Find an out:</b> add a natural stopping point — drink lots of water so you need to pee, or set a content blocker to start in 15 minutes',
+    '<b>Plan an interruption</b> or ask a friend for help interrupting',
+    '<b>Make it harder</b> to follow the impulse — delete apps, hide things, etc',
+    '<b>Set a recurring alarm</b> to check in: do you want to be doing this?',
+    '<b>Set up accountability</b> with others',
+    '<b>Follow the dopamine</b> and replace it with something shorter or more contained — rather than play the game, do the task but get a snack from the vending machine after',
+    '<b>Pretend you’re teaching</b> someone ADHD skills and verbally explain how you resist impulses'],opts:[
+    ['One of those worked!','hell','bg-green'],
+    ['I’m sort of resisting the impulse, but not starting the task','sortof','bg-peach'],
+    ['I still can’t resist, I really really want to do the thing','cantresist','bg-pink']]},
+  sortof:{color:'bg-lilac',q:'Nudge yourself over the line',body:'Create a harmless but immediate problem: toss your phone across the room, knock over a glass of water. Then go to Step 4.',opts:[
+    ['Go to Step 4','s4','bg-step']]},
+  cantresist:{color:'bg-pink',q:'Okay. Which is it?',opts:[
+    ['I’ll do the DBT worksheet on willfulness','willful','bg-lilac'],
+    ['I don’t want to, I really want to do this thing instead and I don’t want to bother with skills','plead','bg-red']]},
+  willful:{color:'bg-lilac',q:'DBT worksheet on willfulness',body:'Willfulness is refusing to do what the moment needs. Fill out the worksheet, then come back.',opts:[
+    ['Done. Go to Step 4','s4','bg-step']]},
+  plead:{color:'bg-pink',q:'Please go to Step 4?',opts:[
+    ['I don’t want to!!','no','bg-red'],
+    ['Fine.','s4','bg-step']]},
+  no:{color:'bg-red',q:'No!!!',body:'The flowchart will wait.',opts:[
+    ['Fine.','s4','bg-step'],
+    ['Still no.','plead','bg-red']]},
+  s4:{step:4,color:'bg-step',q:'Are there other reasons you can’t start the task?',opts:[
+    ['Nope','s5','bg-green'],
+    ['Yes','honest','bg-pink']]},
+  honest:{color:'bg-peach',q:'Did you actually follow or try the suggestions on the flowchart?',opts:[
+    ['I did, I promise!','s5','bg-green'],
+    ['I may have skipped some','again','bg-pink']]},
+  again:{color:'bg-lilac',q:'Go through the flowchart again',body:'Solve those other reasons first, this time trying the suggestions for real.',opts:[
+    ['Back to Step 1','s1','bg-step']]},
+  s5:{step:5,color:'bg-step',q:'Do YOU need to complete the task RIGHT NOW? Can you get an extension or make more time?',opts:[
+    ['It can wait','reschedule','bg-green'],
+    ['No flexibility','delegate','bg-pink']]},
+  reschedule:{end:true,color:'bg-lilac',q:'Set another day or time to complete the task',body:'Put it on the calendar right now, while it’s in front of you. Then you’re done for today.'},
+  delegate:{color:'bg-blue',q:'Can the task be delegated? Can someone else help you?',opts:[
+    ['Yes!','askhelp','bg-green'],
+    ['Nope','partial','bg-pink']]},
+  askhelp:{end:true,color:'bg-lilac',q:'Ask for help!',body:'Message them now. Be specific about what you need and by when.'},
+  partial:{color:'bg-blue',q:'Can you do the task partially or badly?',opts:[
+    ['Yes!','halfass','bg-green'],
+    ['No, it’s high-stakes','worth','bg-pink']]},
+  halfass:{end:true,color:'bg-lilac',q:'Half-ass it.',body:'Something is better than nothing!'},
+  worth:{color:'bg-blue',q:'Is it really worth pushing yourself to do it anyway?',opts:[
+    ['It’s worth it','doit','bg-green'],
+    ['Not worth suffering for','accept','bg-pink']]},
+  doit:{end:true,color:'bg-lilac',q:'Do the task.',body:'Use distress tolerance skills and harm reduction tools to minimize its impact on you.'},
+  accept:{end:true,color:'bg-lilac',q:'Practice radical acceptance.',body:'This task may not get done right now. It might feel like a catastrophe, but it’ll be okay.'},
+  hell:{end:true,burst:true,q:'Hell yeah, get started!'}
+};
+
+const card=document.getElementById('card'),trail=document.getElementById('trail');
+let path=['s1'];
+try{const saved=JSON.parse(localStorage.getItem('ed-path')||'null');if(Array.isArray(saved)&&saved.every(id=>N[id]))path=saved;}catch(e){}
+
+function render(){
+  const id=path[path.length-1],n=N[id];
+  card.innerHTML='';
+  if(n.burst){
+    card.className='card end';
+    const b=document.createElement('div');b.className='burst bg-accent';b.textContent=n.q;card.appendChild(b);
+    const p=document.createElement('p');p.className='body';p.textContent='You found your way through. Go do the thing.';card.appendChild(p);
+    const r=document.createElement('button');r.className='opt bg-step';r.textContent='Start over for the next task';r.onclick=()=>go('s1',true);card.appendChild(r);
+  } else {
+    card.className='card';
+    const e=document.createElement('div');e.className='eyebrow';
+    if(n.step){e.innerHTML='<span class="num">'+n.step+'</span> Step '+n.step;}
+    else if(n.end){e.textContent='Where this path ends';}
+    else if(n.skills){e.textContent='Try these';}
+    else{e.textContent='Follow the arrow';}
+    card.appendChild(e);
+    const t=document.createElement('h2');t.className='title '+n.color;t.textContent=n.q;card.appendChild(t);
+    if(n.body){const p=document.createElement('p');p.className='body';p.textContent=n.body;card.appendChild(p);}
+    if(n.skills){const ul=document.createElement('ul');ul.className='skills';n.skills.forEach(s=>{const li=document.createElement('li');li.innerHTML=s;ul.appendChild(li);});card.appendChild(ul);}
+    const o=document.createElement('div');o.className='opts';
+    if(n.end){
+      const r=document.createElement('button');r.className='opt bg-step';r.textContent='Start over';r.onclick=()=>go('s1',true);o.appendChild(r);
+    } else {
+      n.opts.forEach(([label,next,color,sub])=>{
+        const b=document.createElement('button');b.className='opt '+(next==='hell'?'gohell':color);b.type='button';
+        b.innerHTML=(sub?'<span><span class="lab">'+sub+'</span>'+label+'</span>':'<span>'+label+'</span>');
+        b.onclick=()=>go(next);o.appendChild(b);});
+    }
+    card.appendChild(o);
+  }
+  trail.innerHTML='';
+  path.forEach(pid=>{const s=document.createElement('span');const m=N[pid];s.textContent=m.step?'Step '+m.step:(m.q.length>28?m.q.slice(0,26)+'…':m.q);trail.appendChild(s);});
+  document.getElementById('back').disabled=path.length<2;
+  try{localStorage.setItem('ed-path',JSON.stringify(path));}catch(e){}
+  window.scrollTo({top:0,behavior:'instant'});
+}
+function go(id,reset){ if(reset)path=[id]; else path.push(id); render(); }
+document.getElementById('back').onclick=()=>{if(path.length>1){path.pop();render();}};
+document.getElementById('restart').onclick=()=>go('s1',true);
+render();
+</script>
+</body>
+</html>
